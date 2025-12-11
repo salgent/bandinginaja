@@ -126,7 +126,7 @@ const storeProduct = create<ProductState>()((set) => ({
     setCompareProducts: (similar = 0.5) => {
       set((state) => {
         const groupedProducts = groupSimilarProducts(
-          state.products.filter((p) => p.url),
+          state.products.filter((product) => product.url),
           similar,
         );
         const allProducts = groupedProducts.flatMap((group) => group.products);

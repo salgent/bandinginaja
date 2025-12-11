@@ -11,6 +11,7 @@
     "publish": "electron-forge publish"
   },
   "keywords": [],
+  "author": "Salgent",
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
