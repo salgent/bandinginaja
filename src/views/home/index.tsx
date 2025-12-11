@@ -213,7 +213,6 @@ export const Home: React.FC = () => {
     }
   };
 
-  console.log(products);
   return (
     <div className="p-8">
       <Webview

@@ -1,15 +1,24 @@
 import type { WebviewTag } from "electron";
 import { useCallback, useEffect, useRef } from "react";
+import { cn } from "@/utils/cn";
 
 interface WebviewProps {
   src: string;
   executeJavaScript?: string;
   className?: string;
   onGetHtml?: (html: string) => void;
+  visible?: boolean;
+  zoom?: number;
 }
 
 export const Webview: React.FC<WebviewProps> = (props) => {
-  const { src, executeJavaScript = "", onGetHtml } = props;
+  const {
+    src,
+    executeJavaScript = "",
+    visible = false,
+    zoom = 0.1,
+    onGetHtml,
+  } = props;
 
   const webviewRef = useRef<WebviewTag>(null);
 
@@ -17,7 +26,7 @@ export const Webview: React.FC<WebviewProps> = (props) => {
     const webview = webviewRef.current;
     if (!webview) return;
 
-    webview.setZoomFactor(0.1);
+    webview.setZoomFactor(zoom);
     webview
       .executeJavaScript(executeJavaScript)
       .then((html: string) => {
@@ -26,7 +35,7 @@ export const Webview: React.FC<WebviewProps> = (props) => {
       .catch((error: Error) => {
         console.error("Error executing JavaScript:", error);
       });
-  }, [onGetHtml, executeJavaScript]);
+  }, [onGetHtml, executeJavaScript, zoom]);
 
   useEffect(() => {
     const webview = webviewRef.current;
@@ -43,9 +52,12 @@ export const Webview: React.FC<WebviewProps> = (props) => {
     <webview
       ref={webviewRef}
       src={src}
-      className="-z-50 absolute h-[80vh] w-[80vw] opacity-0"
+      className={cn(
+        "-z-50 absolute h-[80vh] w-[80vw] opacity-0",
+        { "relative z-50 h-[80vh] w-full opacity-100": visible },
+        props.className,
+      )}
       // className="h-[80vh] w-full"
-      nodeintegration={false}
       webpreferences="contextIsolation=true"
       useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.3"
     />

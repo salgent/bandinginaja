@@ -9,16 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MyListsRouteImport } from './routes/my-lists'
 import { Route as CompareRouteImport } from './routes/compare'
+import { Route as BrowserRouteImport } from './routes/browser'
 import { Route as IndexRouteImport } from './routes/index'
 
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MyListsRoute = MyListsRouteImport.update({
   id: '/my-lists',
   path: '/my-lists',
@@ -29,6 +24,11 @@ const CompareRoute = CompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrowserRoute = BrowserRouteImport.update({
+  id: '/browser',
+  path: '/browser',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,47 +37,40 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/browser': typeof BrowserRoute
   '/compare': typeof CompareRoute
   '/my-lists': typeof MyListsRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/browser': typeof BrowserRoute
   '/compare': typeof CompareRoute
   '/my-lists': typeof MyListsRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/browser': typeof BrowserRoute
   '/compare': typeof CompareRoute
   '/my-lists': typeof MyListsRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/compare' | '/my-lists' | '/settings'
+  fullPaths: '/' | '/browser' | '/compare' | '/my-lists'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/compare' | '/my-lists' | '/settings'
-  id: '__root__' | '/' | '/compare' | '/my-lists' | '/settings'
+  to: '/' | '/browser' | '/compare' | '/my-lists'
+  id: '__root__' | '/' | '/browser' | '/compare' | '/my-lists'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BrowserRoute: typeof BrowserRoute
   CompareRoute: typeof CompareRoute
   MyListsRoute: typeof MyListsRoute
-  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/my-lists': {
       id: '/my-lists'
       path: '/my-lists'
@@ -92,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/browser': {
+      id: '/browser'
+      path: '/browser'
+      fullPath: '/browser'
+      preLoaderRoute: typeof BrowserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,9 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BrowserRoute: BrowserRoute,
   CompareRoute: CompareRoute,
   MyListsRoute: MyListsRoute,
-  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

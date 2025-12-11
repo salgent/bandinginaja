@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import {
   BookmarkIcon,
   ChartNoAxesColumnIcon,
+  GlobeIcon,
   PackageIcon,
-  SettingsIcon,
 } from "lucide-react";
 import { cn } from "@/utils/cn";
 
@@ -31,9 +31,9 @@ const Sidebar = () => {
 
   const bottomMenuItems = [
     {
-      name: "Settings",
-      icon: SettingsIcon,
-      path: "/settings",
+      name: "Browser",
+      icon: GlobeIcon,
+      path: "/browser",
     },
   ];
 
