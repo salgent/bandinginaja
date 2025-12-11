@@ -20,33 +20,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Setup Bun (if using Bun)
-      if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
+    - name: Setup Bun
       uses: oven-sh/setup-bun@v1
       with:
         bun-version: latest
         
-    - name: Install dependencies (Windows)
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: npm install
-      
-    - name: Install dependencies (Linux/macOS)
-      if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
-      run: bun install
+    - name: Install dependencies
+      run: bun install --frozen-lockfile
       
     - name: Build application
-      if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
       run: bun run make
-      
-    - name: Build application (Windows)
-      if: ${{ matrix.os == 'windows-latest' }}
-      run: npm run make
       
     - name: Upload artifacts (Linux)
       if: ${{ matrix.os == 'ubuntu-latest' }}
