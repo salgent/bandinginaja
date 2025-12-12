@@ -1,13 +1,15 @@
 import { create } from "zustand";
-import type { Product } from "@/types";
+import type { CompareProduct, Product } from "@/types";
 
 interface ProductState {
   products: Product[];
   search: string;
-  compareProducts: Product[];
+  similarity: number;
+  compareProducts: CompareProduct[];
 
   actions: {
     setSearch: (search: string) => void;
+    setSimilarity: (similarity: number) => void;
     setProducts: (products: Product[]) => void;
     setCompareProducts: (similar?: number) => void;
   };
@@ -52,14 +54,7 @@ const parsePrice = (priceString: string): number => {
 };
 
 const groupSimilarProducts = (products: Product[], minSimilarity = 0.5) => {
-  const groups: {
-    baseName: string;
-    products: Product[];
-    lowestPrice: number;
-    highestPrice: number;
-    priceDifference: number;
-    platformCount: number;
-  }[] = [];
+  const groups: CompareProduct[] = [];
   const used = new Set<number>();
 
   products.forEach((product, index) => {
@@ -113,49 +108,30 @@ const groupSimilarProducts = (products: Product[], minSimilarity = 0.5) => {
   return groups.sort((a, b) => b.platformCount - a.platformCount);
 };
 
-const storeProduct = create<ProductState>()((set) => ({
+const storeProduct = create<ProductState>()((set, get) => ({
   products: [],
-  search: "",
   compareProducts: [],
+  search: "",
+  similarity: 0.5,
 
   actions: {
     setSearch: (search: string) =>
       set({ search, products: [], compareProducts: [] }),
+    setSimilarity: (similarity: number) => {
+      set({ similarity });
+      get().actions.setCompareProducts();
+    },
     setProducts: (products: Product[]) =>
       set((state) => ({ products: state.products.concat(products) })),
-    setCompareProducts: (similar = 0.5) => {
+    setCompareProducts: () => {
       set((state) => {
         const groupedProducts = groupSimilarProducts(
           state.products.filter((product) => product.url),
-          similar,
+          state.similarity,
         );
-        const allProducts = groupedProducts.flatMap((group) => group.products);
-        const data = groupSimilarProducts(allProducts, 0.5);
 
         return {
-          compareProducts: data.map((group, groupIndex) => ({
-            groupIndex,
-            baseName: group.baseName,
-            products: group.products,
-            lowestPrice: group.lowestPrice,
-            highestPrice: group.highestPrice,
-            priceDifference: group.priceDifference,
-            platformCount: group.platformCount,
-            productCards: group.products.map((product, productIndex) => ({
-              index: productIndex,
-              // name: `Product ${productIndex + 1}`,
-              name: product.name,
-              platform: product.platform,
-              imageUrl: product.imageUrl,
-              shopName: product.shopName,
-              url: product.url,
-              price: product.price,
-              rating: product.rating,
-              soldCount: product.soldCount,
-              shopLocation: product.shopLocation,
-              originalPrice: product.originalPrice,
-            })),
-          })),
+          compareProducts: groupedProducts,
         };
       });
     },

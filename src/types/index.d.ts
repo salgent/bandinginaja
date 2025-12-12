@@ -13,3 +13,12 @@ export type Product = {
   shopLocation: string;
   platform: string;
 };
+
+export type CompareProduct = {
+  baseName: string;
+  products: Product[];
+  lowestPrice: number;
+  highestPrice: number;
+  priceDifference: number;
+  platformCount: number;
+};

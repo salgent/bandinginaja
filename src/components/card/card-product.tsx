@@ -1,6 +1,7 @@
 import { StarIcon } from "lucide-react";
 import { memo } from "react";
 import type { Product } from "@/types";
+import { cn } from "@/utils/cn";
 
 interface CardProductProps {
   product: Product;
@@ -59,6 +60,16 @@ const CardProduct: React.FC<CardProductProps> = (props) => {
       </div>
 
       <p className="text-gray-500 text-xs">{product.shopName}</p>
+      <p
+        className={cn("font-medium text-gray-500 text-xs capitalize", {
+          "text-green-500": product.platform === "tokopedia",
+          "text-orange-500": product.platform === "shopee",
+          "text-red-500": product.platform === "lazada",
+          "text-blue-500": product.platform === "blibli",
+        })}
+      >
+        {product.platform}
+      </p>
     </div>
   );
 };

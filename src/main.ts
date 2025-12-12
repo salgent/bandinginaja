@@ -2,6 +2,9 @@ import path from "node:path";
 import { app, BrowserWindow, screen, shell } from "electron";
 import started from "electron-squirrel-startup";
 
+// Import the logo path
+const logoPath = path.join(__dirname, "../../assets/images/logo.png");
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
@@ -15,6 +18,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: width,
     height: height,
+    icon: logoPath,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       webviewTag: true,

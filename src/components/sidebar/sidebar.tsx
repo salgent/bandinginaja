@@ -44,9 +44,11 @@ const Sidebar = () => {
   return (
     <div className="flex h-screen w-64 flex-col border-gray-200 border-r bg-gray-50">
       <div className="flex items-center px-4 py-6">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600">
-          <span className="font-bold text-white text-xl">B</span>
-        </div>
+        <img
+          src="/assets/images/logo.png"
+          alt="BandinginAja Logo"
+          className="h-10 w-10 rounded-full object-contain"
+        />
         <div className="ml-3">
           <span className="font-semibold text-xl">BandinginAja</span>
         </div>

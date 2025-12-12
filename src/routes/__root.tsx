@@ -1,6 +1,7 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import Sidebar from "@/components/sidebar/sidebar";
+import ListWebview from "@/components/webview/list-webview";
 
 const RootLayout = () => {
   return (
@@ -12,6 +13,7 @@ const RootLayout = () => {
         </div>
       </main>
       <TanStackRouterDevtools />
+      <ListWebview />
     </div>
   );
 };
