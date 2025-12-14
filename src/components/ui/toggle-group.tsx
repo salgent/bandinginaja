@@ -21,7 +21,7 @@ const ToggleGroup: React.FC<ToggleGroupProps> = (props) => {
           key={item.value}
           onClick={() => onChange(item.value)}
           className={cn(
-            "focus-visible:-outline-offset-1 flex size-8 select-none items-center justify-center rounded-sm text-gray-500 hover:bg-gray-200 focus-visible:bg-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900",
+            "focus-visible:-outline-offset-1 flex size-8 cursor-pointer select-none items-center justify-center rounded-sm text-gray-500 hover:bg-gray-200 focus-visible:bg-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900",
             {
               "bg-white text-black hover:bg-white": value === item.value,
             },

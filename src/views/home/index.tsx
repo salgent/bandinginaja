@@ -99,7 +99,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 px-8">
+      <div className="flex items-center gap-3 px-8 pb-4">
         <Input
           placeholder="Search products..."
           className="w-full"
@@ -118,7 +118,7 @@ export const Home: React.FC = () => {
       <Activity mode={viewMode === "grid" ? "visible" : "hidden"}>
         <div
           ref={parentRef}
-          className="h-[calc(100vh-140px)] overflow-auto px-8 pt-4"
+          className="h-[calc(100vh-156px)] overflow-auto px-8"
           style={{
             contain: "strict",
           }}

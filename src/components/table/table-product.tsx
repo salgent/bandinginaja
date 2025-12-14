@@ -118,9 +118,9 @@ const TableProduct: React.FC<TableProductProps> = ({ products }) => {
   });
 
   return (
-    <div>
-      <table className="min-w-full border border-gray-100 bg-white">
-        <thead className="bg-gray-50">
+    <div className="relative h-[calc(100vh-156px)] w-full overflow-auto px-8 pb-8">
+      <table className="border border-gray-100 bg-white">
+        <thead className="-top-px sticky z-10 bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (

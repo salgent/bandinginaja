@@ -66,7 +66,7 @@ const Sidebar = () => {
                   "flex w-full cursor-pointer items-center rounded-lg p-3 text-left transition-colors",
                   {
                     "bg-gray-200": isActive(item.path),
-                    "hover:bg-gray-100": !isActive(item.path),
+                    "text-gray-500 hover:bg-gray-100": !isActive(item.path),
                   },
                 )}
               >
@@ -90,7 +90,7 @@ const Sidebar = () => {
                   "flex w-full cursor-pointer items-center rounded-lg p-3 text-left transition-colors",
                   {
                     "bg-gray-200": isActive(item.path),
-                    "hover:bg-gray-100": !isActive(item.path),
+                    "text-gray-500 hover:bg-gray-100": !isActive(item.path),
                   },
                 )}
               >

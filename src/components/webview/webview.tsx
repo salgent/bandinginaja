@@ -53,11 +53,10 @@ export const Webview: React.FC<WebviewProps> = (props) => {
       ref={webviewRef}
       src={src}
       className={cn(
-        "-z-50 absolute h-[80vh] w-[80vw] opacity-0",
-        { "relative z-50 h-[80vh] w-full opacity-100": visible },
+        "-z-50 absolute h-screen w-screen opacity-0",
+        { "relative z-50 h-screen w-full opacity-100": visible },
         props.className,
       )}
-      // className="h-[80vh] w-full"
       webpreferences="contextIsolation=true"
       useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.3"
     />
